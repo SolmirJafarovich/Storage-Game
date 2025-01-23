@@ -10,7 +10,7 @@ public class ItemHandler : MonoBehaviour
     {
         _holdPoint = holdPoint;  // ¬недрение точки удержани€ через конструктор
     }
-    [SerializeField] private float pickupRange = 3f;
+    [SerializeField] private float pickupRange = 5f;
     [SerializeField] private float throwForce = 10f;
 
     private Rigidbody heldObject;
