@@ -7,7 +7,6 @@ public class DoorController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(")");
         // Проверяем, является ли объект игроком
         if (other.CompareTag("Player"))
         {
@@ -17,7 +16,6 @@ public class DoorController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("Сброс активирован (двойной тап)");
         // Закрываем дверь, когда игрок уходит
         if (other.CompareTag("Player"))
         {

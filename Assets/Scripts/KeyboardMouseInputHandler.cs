@@ -2,20 +2,17 @@ using UnityEngine;
 
 public class KeyboardMouseInputHandler : IInputHandler
 {
-    private readonly Transform _playerTransform; // Ссылка на Transform персонажа
-    private readonly Transform _cameraTransform; // Ссылка на Transform камеры
-    private readonly Transform _holdPoint;
+    private readonly Transform _playerTransform; 
+    private readonly Transform _cameraTransform; 
     private readonly float _moveSpeed;
     private readonly float _lookSpeed;
 
-    private GameObject _heldObject; // Текущий поднятый объект
     private float _xRotation;
 
-    public KeyboardMouseInputHandler(Transform playerTransform, Transform cameraTransform, Transform holdPoint, float moveSpeed, float lookSpeed)
+    public KeyboardMouseInputHandler(Transform playerTransform, Transform cameraTransform, float moveSpeed, float lookSpeed)
     {
         _playerTransform = playerTransform;
         _cameraTransform = cameraTransform;
-        _holdPoint = holdPoint;
         _moveSpeed = moveSpeed;
         _lookSpeed = lookSpeed;
     }
@@ -43,16 +40,16 @@ public class KeyboardMouseInputHandler : IInputHandler
 
     public bool IsPickupPressed()
     {
-        return Input.GetMouseButtonDown(0); // ЛКМ
+        return Input.GetMouseButtonDown(0); 
     }
 
     public bool IsDropPressed()
     {
-        return Input.GetMouseButtonDown(1); // ПКМ
+        return Input.GetMouseButtonDown(1); 
     }
 
     public bool IsThrowPressed()
     {
-        return Input.GetKeyDown(KeyCode.Space); // Пробел
+        return Input.GetKeyDown(KeyCode.Space); 
     }
 }

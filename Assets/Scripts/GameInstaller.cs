@@ -34,7 +34,6 @@ public class GameInstaller : MonoInstaller
     public override void InstallBindings()
     {
 
-        // Определяем тип ввода
         if (useTouchControls)
         {
             Container.Bind<IInputHandler>()
@@ -47,7 +46,7 @@ public class GameInstaller : MonoInstaller
             Container.Bind<IInputHandler>()
                 .To<KeyboardMouseInputHandler>()
                 .AsSingle()
-                .WithArguments(playerTransform, playerCamera, holdPoint, moveSpeed, lookSpeed);
+                .WithArguments(playerTransform, playerCamera, moveSpeed, lookSpeed);
         }
 
         Container.Bind<IItemHolder>()

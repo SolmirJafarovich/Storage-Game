@@ -37,13 +37,10 @@ public class MobileInputHandler : IInputHandler
     {
         if (Input.touchCount > 0)
         {
-            // Проверяем активность джойстика
             bool isJoystickActive = Mathf.Abs(_joystick.Horizontal) > 0.1f || Mathf.Abs(_joystick.Vertical) > 0.1f;
 
-            // Если джойстик активен, обрабатываем второе касание
             Touch touch = (Input.touchCount > 1 && isJoystickActive) ? Input.GetTouch(1) : Input.GetTouch(0);
 
-            // Если джойстик активен и нет второго касания, выходим из метода
             if (isJoystickActive && Input.touchCount == 1)
             {
                 return;
@@ -103,7 +100,6 @@ public class MobileInputHandler : IInputHandler
             {
                 if (Time.time - lastTapTime <= doubleTapThreshold)
                 {
-                    Debug.Log("Сброс активирован (двойной тап)");
                     lastTapTime = 0f;
                     return true;
                 }

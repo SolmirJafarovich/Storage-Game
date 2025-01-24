@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class ItemHolderPC : IItemHolder
 {
-    private readonly Transform _cameraTransform; // Ссылка на Transform камеры
+    private readonly Transform _cameraTransform; 
     private readonly Transform _holdPoint;
     private readonly float _pickupRange;
     private readonly float _throwForce;
 
-    private GameObject _heldObject; // Текущий поднятый объект
+    private GameObject _heldObject; 
 
     public ItemHolderPC(Transform cameraTransform, Transform holdPoint, float pickupRange, float throwForce)
     {
