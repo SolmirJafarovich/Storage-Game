@@ -32,16 +32,24 @@ public class MobileInputHandler : IInputHandler
         _playerTransform.position += move * _moveSpeed * Time.deltaTime;
     }
 
+
     public void HandleLook()
     {
-        if (_joystick.Horizontal == 0 && _joystick.Vertical == 0)
+        if (Input.touchCount > 0)
         {
+            // Проверяем активность джойстика
+            bool isJoystickActive = Mathf.Abs(_joystick.Horizontal) > 0.1f || Mathf.Abs(_joystick.Vertical) > 0.1f;
 
-            if (Input.touchCount > 0)
+            // Если джойстик активен, обрабатываем второе касание
+            Touch touch = (Input.touchCount > 1 && isJoystickActive) ? Input.GetTouch(1) : Input.GetTouch(0);
+
+            // Если джойстик активен и нет второго касания, выходим из метода
+            if (isJoystickActive && Input.touchCount == 1)
             {
-                Touch touch = Input.GetTouch(0);
+                return;
+            }
 
-                switch (touch.phase)
+            switch (touch.phase)
                 {
                     case TouchPhase.Began:
                         _startTouchPosition = touch.position;
@@ -75,7 +83,7 @@ public class MobileInputHandler : IInputHandler
                 }
             }
         }
-    }
+    
     public bool IsPickupPressed()
     {
 

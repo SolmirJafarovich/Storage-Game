@@ -19,12 +19,15 @@ public class ItemHolderPC : IItemHolder
 
     public void TryPickupObject()
     {
-        Ray ray = _cameraTransform.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, _pickupRange))
+        if (_heldObject == null)
         {
-            if (hit.collider.CompareTag("Pickup"))
+            Ray ray = _cameraTransform.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, _pickupRange))
             {
-                PickupObject(hit.collider.gameObject);
+                if (hit.collider.CompareTag("Pickup"))
+                {
+                    PickupObject(hit.collider.gameObject);
+                }
             }
         }
     }
