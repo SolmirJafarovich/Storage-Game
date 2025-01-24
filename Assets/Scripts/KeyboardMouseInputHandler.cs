@@ -41,36 +41,18 @@ public class KeyboardMouseInputHandler : IInputHandler
         _playerTransform.Rotate(Vector3.up * viewX);
     }
 
-/*    public void HandleInteraction()
+    public bool IsPickupPressed()
     {
-        if (Input.GetMouseButtonDown(0)) // Левая кнопка мыши
-        {
-            if (_heldObject == null)
-            {
-                // Проверяем объект перед игроком
-                if (Physics.Raycast(_cameraTransform.position, _cameraTransform.forward, out RaycastHit hit, 3f))
-                {
-                    var interactable = hit.collider.GetComponent<IInteractable>();
-                    if (interactable != null)
-                    {
-                        interactable.Interact();
-                        _heldObject = hit.collider.gameObject;
+        return Input.GetMouseButtonDown(0); // ЛКМ
+    }
 
-                        // Перемещаем объект в точку удержания
-                        _heldObject.transform.SetParent(_holdPoint);
-                        _heldObject.transform.localPosition = Vector3.zero;
-                        _heldObject.transform.localRotation = Quaternion.identity;
-                        _heldObject.GetComponent<Rigidbody>().isKinematic = true;
-                    }
-                }
-            }
-            else
-            {
-                // Если объект уже удерживается, отпускаем его
-                _heldObject.transform.SetParent(null);
-                _heldObject.GetComponent<Rigidbody>().isKinematic = false;
-                _heldObject = null;
-            }
-        }
-    }*/
+    public bool IsDropPressed()
+    {
+        return Input.GetMouseButtonDown(1); // ПКМ
+    }
+
+    public bool IsThrowPressed()
+    {
+        return Input.GetKeyDown(KeyCode.Space); // Пробел
+    }
 }

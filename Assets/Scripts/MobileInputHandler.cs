@@ -36,7 +36,7 @@ public class MobileInputHandler : IInputHandler
     {
         if (_joystick.Horizontal == 0 && _joystick.Vertical == 0)
         {
-            // Управление камерой только если джойстик не используется
+
             if (Input.touchCount > 0)
             {
                 Touch touch = Input.GetTouch(0);
@@ -54,13 +54,13 @@ public class MobileInputHandler : IInputHandler
                             _currentTouchPosition = touch.position;
                             Vector2 delta = _currentTouchPosition - _startTouchPosition;
 
-                            // Поворачиваем персонажа по горизонтали (оси Y)
+  
                             float horizontalRotation = delta.x * _lookSpeed * Time.deltaTime;
                             _playerTransform.Rotate(0, horizontalRotation, 0);
 
-                            // Поворачиваем персонажа по вертикали (оси X)
+
                             _xRotation -= delta.y * _lookSpeed * Time.deltaTime;
-                            _xRotation = Mathf.Clamp(_xRotation, -80f, 80f); // Ограничиваем вертикальный угол поворота
+                            _xRotation = Mathf.Clamp(_xRotation, -80f, 80f);
 
                             Camera.main.transform.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
 
@@ -75,5 +75,50 @@ public class MobileInputHandler : IInputHandler
                 }
             }
         }
+    }
+    public bool IsPickupPressed()
+    {
+
+        return Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began;
+    }
+
+    private float lastTapTime = 0f; 
+    private const float doubleTapThreshold = 0.3f; 
+
+    public bool IsDropPressed()
+    {
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+
+            if (touch.phase == TouchPhase.Ended)
+            {
+                if (Time.time - lastTapTime <= doubleTapThreshold)
+                {
+                    Debug.Log("Сброс активирован (двойной тап)");
+                    lastTapTime = 0f;
+                    return true;
+                }
+                lastTapTime = Time.time;
+            }
+        }
+
+        return false;
+    }
+
+
+    public bool IsThrowPressed()
+    {
+
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Moved && touch.deltaPosition.y > 50)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

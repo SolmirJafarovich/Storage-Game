@@ -18,9 +18,27 @@ public class PlayerController : MonoBehaviour
         _inputHandler.HandleLook();
         _inputHandler.HandleMovement();
 
-        if (Input.GetMouseButtonDown(0)) // Клавиша для подбора
+        HandleItemInteractions();
+    }
+
+    private void HandleItemInteractions()
+    {
+        // Попытка подобрать объект
+        if (_inputHandler.IsPickupPressed())
         {
             _itemHandlerPC.TryPickupObject();
+        }
+
+        // Сброс объекта
+        if (_inputHandler.IsDropPressed())
+        {
+            _itemHandlerPC.DropObject();
+        }
+
+        // Бросок объекта
+        if (_inputHandler.IsThrowPressed())
+        {
+            _itemHandlerPC.ThrowObject();
         }
     }
 }

@@ -39,17 +39,23 @@ public class ItemHolderPC : IItemHolder
 
     public void DropObject()
     {
-        _heldObject.GetComponent<Rigidbody>().isKinematic = false;
-        _heldObject.transform.parent = null;
-        _heldObject = null;
+        if (_heldObject != null)
+        {
+            _heldObject.GetComponent<Rigidbody>().isKinematic = false;
+            _heldObject.transform.parent = null;
+            _heldObject = null;
+        }
     }
 
     public void ThrowObject()
     {
+        if (_heldObject != null)
+        {
         Rigidbody rb = _heldObject.GetComponent<Rigidbody>();
         rb.isKinematic = false;
         rb.AddForce(_cameraTransform.forward * _throwForce, ForceMode.Impulse);
         _heldObject.transform.parent = null;
         _heldObject = null;
+        }
     }
 }

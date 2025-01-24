@@ -5,6 +5,9 @@ public interface IInputHandler
 {
     void HandleMovement();
     void HandleLook();
+    bool IsPickupPressed(); 
+    bool IsDropPressed();   
+    bool IsThrowPressed();
 }
 
 public interface IItemHolder
