@@ -3,13 +3,13 @@ using Zenject;
 
 public class PlayerController : MonoBehaviour
 {
-    private ItemHandler _itemHandler;
+    private IItemHolder _itemHandlerPC;
     private IInputHandler _inputHandler;
 
     [Inject]
-    public void Construct(ItemHandler itemHandler, IInputHandler inputHandler)
+    public void Construct(IItemHolder itemHandlerPC, IInputHandler inputHandler)
     {
-        _itemHandler = itemHandler;
+        _itemHandlerPC = itemHandlerPC;
         _inputHandler = inputHandler;
     }
 
@@ -17,18 +17,10 @@ public class PlayerController : MonoBehaviour
     {
         _inputHandler.HandleLook();
         _inputHandler.HandleMovement();
-    }
-/*        if (Input.GetKeyDown(KeyCode.E)) // Поднять или бросить объект
-        {
-            if (_itemHandler.HeldObject == null)
-                _itemHandler.TryPickupObject(_inputHandler.transform);
-            else
-                _itemHandler.DropObject();
-        }
 
-        if (Input.GetMouseButtonDown(0) && _itemHandler.HeldObject != null) // Бросить объект
+        if (Input.GetMouseButtonDown(0)) // Клавиша для подбора
         {
-            _itemHandler.ThrowObject(_inputHandler.transform);
+            _itemHandlerPC.TryPickupObject();
         }
-    }*/
+    }
 }

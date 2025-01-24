@@ -7,6 +7,15 @@ public interface IInputHandler
     void HandleLook();
 }
 
+public interface IItemHolder
+{
+    void TryPickupObject();
+    void PickupObject(GameObject obj); 
+    void DropObject();   
+    void ThrowObject(); 
+}
+
+
 public class GameInstaller : MonoInstaller
 {
     public Transform playerCamera;
@@ -15,6 +24,8 @@ public class GameInstaller : MonoInstaller
     public Joystick joystick;
     public float moveSpeed = 5f;
     public float lookSpeed = 3f;
+    public float pickupRange = 5f;
+    public float throwForce = 15f;
     public bool useTouchControls;
 
     public override void InstallBindings()
@@ -33,15 +44,12 @@ public class GameInstaller : MonoInstaller
             Container.Bind<IInputHandler>()
                 .To<KeyboardMouseInputHandler>()
                 .AsSingle()
-                .WithArguments(playerTransform, playerCamera, moveSpeed, lookSpeed);
-
+                .WithArguments(playerTransform, playerCamera, holdPoint, moveSpeed, lookSpeed);
         }
 
-        Container.Bind<ItemHandler>().FromComponentInHierarchy().AsSingle();
-
-
-        Container.BindInstance(holdPoint).WhenInjectedInto<ItemHandler>();
-
-
+        Container.Bind<IItemHolder>()
+            .To<ItemHolderPC>()
+            .AsSingle()
+            .WithArguments(playerCamera, holdPoint, pickupRange, throwForce);
     }
 }
