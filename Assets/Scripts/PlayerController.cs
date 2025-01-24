@@ -3,32 +3,32 @@ using Zenject;
 
 public class PlayerController : MonoBehaviour
 {
-    private PlayerMovement _playerMovement;
     private ItemHandler _itemHandler;
+    private IInputHandler _inputHandler;
 
     [Inject]
-    public void Construct(PlayerMovement playerMovement, ItemHandler itemHandler)
+    public void Construct(ItemHandler itemHandler, IInputHandler inputHandler)
     {
-        _playerMovement = playerMovement;
         _itemHandler = itemHandler;
+        _inputHandler = inputHandler;
     }
 
     private void Update()
     {
-        _playerMovement.HandleLook();
-        _playerMovement.HandleMovement();
-
-        if (Input.GetKeyDown(KeyCode.E)) // Поднять или бросить объект
+        _inputHandler.HandleLook();
+        _inputHandler.HandleMovement();
+    }
+/*        if (Input.GetKeyDown(KeyCode.E)) // Поднять или бросить объект
         {
             if (_itemHandler.HeldObject == null)
-                _itemHandler.TryPickupObject(_playerMovement.transform);
+                _itemHandler.TryPickupObject(_inputHandler.transform);
             else
                 _itemHandler.DropObject();
         }
 
         if (Input.GetMouseButtonDown(0) && _itemHandler.HeldObject != null) // Бросить объект
         {
-            _itemHandler.ThrowObject(_playerMovement.transform);
+            _itemHandler.ThrowObject(_inputHandler.transform);
         }
-    }
+    }*/
 }
